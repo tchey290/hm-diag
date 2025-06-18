@@ -36,7 +36,6 @@ RUN install_packages \
     pip install certifi typing-extensions urllib3 && \
     pip install --no-cache-dir poetry==1.5.1 && \
     poetry config installer.max-workers 10 && \
-    poetry config experimental.new-installer false && \
     poetry install --no-cache --no-root --only main --no-ansi --no-interaction && \
     poetry build && \
     pip install --no-cache-dir dist/hw_diag-1.0.tar.gz && \
