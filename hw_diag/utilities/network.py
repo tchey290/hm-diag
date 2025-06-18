@@ -1,3 +1,4 @@
+import os
 import logging
 import subprocess  # nosec
 
@@ -54,6 +55,7 @@ def setup_hostname():
     # This runs before the Flask app is really fully running, so we do not have the
     # global "g" object with the db session, so we must spawn our own.
     db = get_db_session()
+    HOSTNAME_OVERRIDE = os.getenv('HOSTNAME_OVERRIDE', 'false')
     HOSTNAME_SET_KEY = "hostname_set"
     try:
         try:
@@ -69,12 +71,17 @@ def setup_hostname():
 
         # We don't use boolean here because the field in the DB is a string as we have
         # some general key value pair table with string values. Sorry bros :-(
-        if hostname_set_row.value == "false":
-            logging.info("Hostname not set yet...")
+        if hostname_set_row.value == "false" or HOSTNAME_OVERRIDE:
+            logging.info("Hostname not set yet or override enabled...")
             # Set hostname via Balena supervisor...
-            default_password = generate_default_password()
-            hostname_suffix = default_password[6:]
-            hostname = "nebra-%s.local" % hostname_suffix
+            if HOSTNAME_OVERRIDE != "false":
+                hostname = HOSTNAME_OVERRIDE
+                logging.info("Using hostname override from env var!")
+            else:
+                default_password = generate_default_password()
+                hostname_suffix = default_password[6:]
+                hostname = "nebra-%s.local" % hostname_suffix
+                logging.info("No hostname override, using default!")
             balena_supervisor = BalenaSupervisor.new_from_env()
             balena_supervisor.set_hostname(hostname)
             hostname_set_row.value = "true"
