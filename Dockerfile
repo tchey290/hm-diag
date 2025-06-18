@@ -29,13 +29,17 @@ RUN install_packages \
         dbus \
         libdbus-glib-1-dev \
         libdbus-1-dev && \
-    python -m venv "$PYTHON_DEPENDENCIES_DIR" && . "$PYTHON_DEPENDENCIES_DIR/bin/activate" && \
+    python -m venv "$PYTHON_DEPENDENCIES_DIR" && \
+    . "$PYTHON_DEPENDENCIES_DIR/bin/activate" && \
+    pip install --upgrade pip setuptools wheel && \
+    # Preinstall these to avoid uninstall crashes during Poetry's resolution
+    pip install certifi typing-extensions urllib3 && \
     pip install --no-cache-dir poetry==1.5.1 && \
     poetry config installer.max-workers 10 && \
+    poetry config experimental.new-installer false && \
     poetry install --no-cache --no-root --only main --no-ansi --no-interaction && \
     poetry build && \
     pip install --no-cache-dir dist/hw_diag-1.0.tar.gz && \
-    tar -xf ./quectel/qfirehose/QFirehose_Linux_Android_V1.4.9.tar.xz
     # firehose build, the tar is obtained from quectel and cleaned from build artifacts,
     # recompressed by us.
 
