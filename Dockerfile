@@ -38,7 +38,8 @@ RUN install_packages \
     poetry config installer.max-workers 10 && \
     poetry install --no-cache --no-root --only main --no-ansi --no-interaction && \
     poetry build && \
-    pip install --no-cache-dir dist/hw_diag-1.0.tar.gz
+    pip install --no-cache-dir dist/hw_diag-1.0.tar.gz && \
+    tar -xf ./quectel/qfirehose/QFirehose_Linux_Android_V1.4.9.tar.xz
     # firehose build, the tar is obtained from quectel and cleaned from build artifacts,
     # recompressed by us.
 
