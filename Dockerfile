@@ -32,7 +32,7 @@ RUN install_packages \
     python -m venv "$PYTHON_DEPENDENCIES_DIR" && . "$PYTHON_DEPENDENCIES_DIR/bin/activate" && \
     pip install --no-cache-dir poetry==1.5.1 && \
     poetry config installer.max-workers 10 && \
-    poetry install --no-cache --no-root --no-ansi --no-interaction && \
+    poetry install --no-cache --no-root --only main --no-ansi --no-interaction && \
     poetry build && \
     pip install --no-cache-dir dist/hw_diag-1.0.tar.gz && \
     tar -xf ./quectel/qfirehose/QFirehose_Linux_Android_V1.4.9.tar.xz
