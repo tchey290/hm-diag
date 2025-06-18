@@ -38,6 +38,7 @@ sentry-sdk = { version = "~2.8.0", extras = ["Flask"] }
 SQLAlchemy = "2.0.18"
 uptime = "3.0.1"
 werkzeug = "3.0.6"
+PyYAML = "^6.0"
 
 [tool.poetry.group.dev.dependencies]
 bandit = { version = "~1.7.5", extras = ["toml"] }
