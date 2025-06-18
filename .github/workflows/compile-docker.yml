@@ -113,8 +113,9 @@ jobs:
           docker buildx imagetools create -t ${tags[3]} -t ${tags[4]} -t ${tags[5]} ghcr.io/tchey290/hm-diag:arm64-${{ github.sha }} ghcr.io/tchey290/hm-diag:amd64-${{ github.sha }}
 
       - name: Update repo description
-        uses: peter-evans/dockerhub-description@v4
+        uses: peter-evans/dockerhub-description@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: tjcheyne/hm-diag
           short-description: ${{ github.event.repository.description }}
