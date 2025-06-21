@@ -110,7 +110,7 @@ jobs:
         run: |
           tags=(${{ steps.meta.outputs.tags }})
           docker buildx imagetools create -t ${tags[0]} -t ${tags[1]} -t ${tags[2]} tjcheyne/hm-diag:arm64-${{ github.sha }} tjcheyne/hm-diag:amd64-${{ github.sha }}
-          docker buildx imagetools create -t ${tags[3]} -t ${tags[4]} -t ${tags[5]} ghcr.io/tchey290/hm-diag:arm64-${{ github.sha }} ghcr.io/tchey290/hm-diag:amd64-${{ github.sha }}
+          docker buildx imagetools create -t ${tags[3]} -t ${tags[4]} -t ${tags[5]} ghcr.io/tjcheyne/hm-diag:arm64-${{ github.sha }} ghcr.io/tjcheyne/hm-diag:amd64-${{ github.sha }}
 
       - name: Update repo description
         uses: peter-evans/dockerhub-description@v3
